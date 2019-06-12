@@ -34,7 +34,7 @@ export class VssPullRequests {
         };
         return Promise.all(repos.map(repo => {
             return this.gitClient.getPullRequests(repo.id, search).then(prs => {
-                return prs.filter(pr => !pr.isDraft).map(pr => {
+                return prs.map(pr => {
                     let userVote = -1;
                     const userAsReviewer = pr.reviewers.filter(reviewer => reviewer.id === this.user.id);
                     if (userAsReviewer.length === 1) {
@@ -50,7 +50,9 @@ export class VssPullRequests {
                         vote: userVote,
                         reviewers: pr.reviewers,
                         baseBranch: pr.sourceRefName.replace("refs/heads/", ""),
-                        targetBranch: pr.targetRefName.replace("refs/heads/", "")
+                        targetBranch: pr.targetRefName.replace("refs/heads/", ""),
+                        isDraft: pr.isDraft,
+                        creationDate: pr.creationDate
                     };
                     return pullRequest;
                 });

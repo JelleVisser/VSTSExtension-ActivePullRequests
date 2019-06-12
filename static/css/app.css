@@ -69,3 +69,7 @@ h1 {
 .table-row:hover .vote-icon .bowtie-icon {
     background-color: rgb(var(--palette-neutral-6));
 }
+
+.u-danger {
+    color: rgba(var(--palette-accent1, 218, 10, 0), 1);
+  }
